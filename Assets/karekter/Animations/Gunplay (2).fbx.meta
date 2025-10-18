@@ -1,69 +1,9 @@
 fileFormatVersion: 2
-guid: aa59561d7a8e1f942b7b702878887798
+guid: b6e019f35250fcc4885ac1e47c23d45c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1001_Diffuse
-    second: {fileID: 2800000, guid: 0aa8929b18280ed4ab32bf3f570e6737, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1001_Emissive
-    second: {fileID: 2800000, guid: 62640e3cc5d6bad4aa6742bddab5a18f, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1001_Glossiness
-    second: {fileID: 2800000, guid: 241d6ab2f5252304baf679f609f53ad9, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1001_Normal
-    second: {fileID: 2800000, guid: 4945cc0531fecb946a0e33242f84e25d, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1001_Specular
-    second: {fileID: 2800000, guid: 821f7fce44acdb443a8baabc16c69a43, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1002_Diffuse
-    second: {fileID: 2800000, guid: 938cc589f8cc9814097cc084e3c845a9, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1002_Emissive
-    second: {fileID: 2800000, guid: 5472bfd5b2b63e44fa7f8c3c387db8f5, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1002_Glossiness
-    second: {fileID: 2800000, guid: b1488cc0290b9bf43a69c1a967f46883, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1002_Normal
-    second: {fileID: 2800000, guid: 3f29c04a84088084fb564dd95c37495a, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1002_Specular
-    second: {fileID: 2800000, guid: ffd4d86dca5ec144db1ff648dab00317, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1003_Diffuse
-    second: {fileID: 2800000, guid: 786372de18dd91b4c9ae670d1f17dbf5, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch48_1003_Glossiness
-    second: {fileID: 2800000, guid: 1c0ee4a094103c9409e0c05b9f127aef, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -89,7 +29,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: mixamo.com
+      takeName: mixamo.com
+      internalID: -203655887218126122
+      firstFrame: 0
+      lastFrame: 6
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -157,7 +126,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
