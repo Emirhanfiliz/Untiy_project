@@ -29,31 +29,33 @@ public class KameraKontrol : MonoBehaviour
 
         if (karakterHp.YasiyorMu() == true)
         {
-            if (hedef == null) return;
 
 
-            transform.position = Vector3.Lerp(transform.position, hedef.position + hedefMesafe, Time.deltaTime * 10f);
+        }
+
+        if (hedef == null) return;
 
 
-            fareX += Input.GetAxis("Mouse X") * FareHassasiyeti;
-            fareY -= Input.GetAxis("Mouse Y") * FareHassasiyeti;
+        transform.position = Vector3.Lerp(transform.position, hedef.position + hedefMesafe, Time.deltaTime * 10f);
 
 
-            fareY = Mathf.Clamp(fareY, -40f, 25f);
+        fareX += Input.GetAxis("Mouse X") * FareHassasiyeti;
+        fareY -= Input.GetAxis("Mouse Y") * FareHassasiyeti;
 
 
-            transform.rotation = Quaternion.Euler(fareY, fareX, 0f);
-            hedef.rotation = Quaternion.Euler(0f, fareX, 0f);
+        fareY = Mathf.Clamp(fareY, -40f, 25f);
 
 
-            if (KarakterVucut != null)
-            {
-                float bodyTiltX = fareY + 10f;
+        transform.rotation = Quaternion.Euler(fareY, fareX, 0f);
+        hedef.rotation = Quaternion.Euler(0f, fareX, 0f);
 
-                bodyTiltX = Mathf.Clamp(bodyTiltX, -40f, 45f);
-                KarakterVucut.rotation = Quaternion.Euler(bodyTiltX, fareX, 0f);
-            }
 
+        if (KarakterVucut != null)
+        {
+            float bodyTiltX = fareY + 10f;
+
+            bodyTiltX = Mathf.Clamp(bodyTiltX, -40f, 45f);
+            KarakterVucut.rotation = Quaternion.Euler(bodyTiltX, fareX, 0f);
         }
 
     }

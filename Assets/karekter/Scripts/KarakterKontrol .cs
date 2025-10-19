@@ -17,7 +17,7 @@ public class KarakterKontrol : MonoBehaviour
 
     void Update()
     {
-        Hareket();
+
         if (saglık <= 0)
         {
             hayattaMi = false;
@@ -47,13 +47,13 @@ public class KarakterKontrol : MonoBehaviour
         anim.SetFloat("Horizontal", yatay);
         anim.SetFloat("Vertical", dikey);
 
-        // Karakterin hareket yönü
+
         Vector3 hareket = new Vector3(yatay, 0, dikey);
 
-        // Normalize edip hızla çarpıyoruz
+
         this.gameObject.transform.Translate(yatay * karakterHiz * Time.deltaTime, 0, dikey * karakterHiz * Time.deltaTime);
 
-        // Karakter dönsün (eğer hareket ediyorsa)
+
         if (hareket != Vector3.zero)
         {
             transform.forward = hareket;
