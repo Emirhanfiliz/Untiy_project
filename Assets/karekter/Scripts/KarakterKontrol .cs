@@ -6,15 +6,37 @@ public class KarakterKontrol : MonoBehaviour
 {
     private Animator anim;
     private float karakterHiz = 5f;
+    private float saglık = 100;
+    bool hayattaMi;
 
     void Start()
     {
         anim = this.GetComponent<Animator>();
+        hayattaMi = true;
     }
 
     void Update()
     {
         Hareket();
+        if (saglık <= 0)
+        {
+            hayattaMi = false;
+            anim.SetBool("yasiyorMu", hayattaMi);
+
+        }
+        if (hayattaMi == true)
+        {
+            Hareket();
+        }
+    }
+    public bool YasiyorMu()
+    {
+        return hayattaMi;
+    }
+    public void HasarAl()
+    {
+        saglık -= Random.Range(5, 15);
+
     }
 
     void Hareket()

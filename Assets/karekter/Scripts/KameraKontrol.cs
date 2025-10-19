@@ -7,6 +7,7 @@ public class KameraKontrol : MonoBehaviour
     [SerializeField]
     private float FareHassasiyeti = 2f;
     float fareX, fareY;
+    KarakterKontrol karakterHp;
 
     Vector3 objRot;
     public Transform KarakterVucut;
@@ -15,6 +16,7 @@ public class KameraKontrol : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        karakterHp = GameObject.Find("Ch48_nonPBR").GetComponent<KarakterKontrol>();
     }
 
     void Update()
@@ -24,30 +26,36 @@ public class KameraKontrol : MonoBehaviour
 
     void LateUpdate()
     {
-        if (hedef == null) return;
 
-
-        transform.position = Vector3.Lerp(transform.position, hedef.position + hedefMesafe, Time.deltaTime * 10f);
-
-
-        fareX += Input.GetAxis("Mouse X") * FareHassasiyeti;
-        fareY -= Input.GetAxis("Mouse Y") * FareHassasiyeti;
-
-
-        fareY = Mathf.Clamp(fareY, -40f, 25f);
-
-
-        transform.rotation = Quaternion.Euler(fareY, fareX, 0f);
-        hedef.rotation = Quaternion.Euler(0f, fareX, 0f);
-
-
-        if (KarakterVucut != null)
+        if (karakterHp.YasiyorMu() == true)
         {
-            float bodyTiltX = fareY + 10f;
+            if (hedef == null) return;
 
-            bodyTiltX = Mathf.Clamp(bodyTiltX, -40f, 45f);
-            KarakterVucut.rotation = Quaternion.Euler(bodyTiltX, fareX, 0f);
+
+            transform.position = Vector3.Lerp(transform.position, hedef.position + hedefMesafe, Time.deltaTime * 10f);
+
+
+            fareX += Input.GetAxis("Mouse X") * FareHassasiyeti;
+            fareY -= Input.GetAxis("Mouse Y") * FareHassasiyeti;
+
+
+            fareY = Mathf.Clamp(fareY, -40f, 25f);
+
+
+            transform.rotation = Quaternion.Euler(fareY, fareX, 0f);
+            hedef.rotation = Quaternion.Euler(0f, fareX, 0f);
+
+
+            if (KarakterVucut != null)
+            {
+                float bodyTiltX = fareY + 10f;
+
+                bodyTiltX = Mathf.Clamp(bodyTiltX, -40f, 45f);
+                KarakterVucut.rotation = Quaternion.Euler(bodyTiltX, fareX, 0f);
+            }
+
         }
+
     }
 
 }

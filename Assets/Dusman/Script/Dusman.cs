@@ -9,7 +9,8 @@ public class Dusman : MonoBehaviour
     bool zombiOlu;
     public GameObject hedefOyuncu;
     public float Kovalamamesafe;
-    public float mesafe;
+    public float saldirmaMesafesi;
+    float mesafe;
     NavMeshAgent zombiNavMesh;
 
     void Start()
@@ -20,7 +21,9 @@ public class Dusman : MonoBehaviour
     }
 
     void Update()
+
     {
+
         if (zombiHP <= 0)
         {
             zombiOlu = true;
@@ -32,13 +35,35 @@ public class Dusman : MonoBehaviour
         }
         else
         {
-            float mesafe = Vector3.Distance(this.transform.position, hedefOyuncu.transform.position);
+            mesafe = Vector3.Distance(this.transform.position, hedefOyuncu.transform.position);
             if (mesafe < Kovalamamesafe)
             {
+                zombiNavMesh.isStopped = false;
                 zombiNavMesh.SetDestination(hedefOyuncu.transform.position);
+                zombiAnim.SetBool("yuruyor", true);
+
+                this.transform.LookAt(hedefOyuncu.transform.position);
+
+            }
+            else
+            {
+                zombiAnim.SetBool("yuruyor", false);
+                zombiAnim.SetBool("saldiriyor", false);
+                zombiNavMesh.isStopped = true;
+            }
+            if (mesafe < saldirmaMesafesi)
+            {
+                zombiNavMesh.isStopped = true;
+                zombiAnim.SetBool("yuruyor", false);
+                zombiAnim.SetBool("saldiriyor", true);
+                this.transform.LookAt(hedefOyuncu.transform.position);
             }
         }
 
+    }
+    public void HasarVer()
+    {
+        hedefOyuncu.GetComponent<KarakterKontrol>().HasarAl();
     }
     IEnumerator Yokol()
     {

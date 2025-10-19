@@ -5,19 +5,25 @@ public class Fire : MonoBehaviour
     public Camera kamera;
     public LayerMask Ecikatman;
     public float menzil = 100f;
+    KarakterKontrol hpKontrol;
 
     void Start()
     {
         kamera = Camera.main;
         if (kamera == null) Debug.LogError("Main Camera bulunamadı. Kamera'nın Tag'i 'MainCamera' mı?");
+        hpKontrol = this.gameObject.GetComponent<KarakterKontrol>();
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (hpKontrol.YasiyorMu() == true)
         {
-            AtesEtme();
+            if (Input.GetMouseButtonDown(0))
+            {
+                AtesEtme();
+            }
         }
+
     }
 
     void AtesEtme()
