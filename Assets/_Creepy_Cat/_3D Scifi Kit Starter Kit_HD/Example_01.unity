@@ -1904,6 +1904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787e8ff18a9de9941a657eea2a35e803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  karakterHiz: 3
+  kosmaCarpani: 1.5
 --- !u!4 &28534441 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: aa59561d7a8e1f942b7b702878887798, type: 3}
