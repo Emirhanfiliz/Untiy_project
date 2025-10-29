@@ -5,7 +5,8 @@ using UnityEngine;
 public class KarakterKontrol : MonoBehaviour
 {
     private Animator anim;
-    private float karakterHiz = 5f;
+    [SerializeField] private float karakterHiz = 2f;
+    [SerializeField] private float kosmaCarpani = 2f;
     private float saglık = 100;
     bool hayattaMi;
 
@@ -27,6 +28,10 @@ public class KarakterKontrol : MonoBehaviour
         if (hayattaMi == true)
         {
             Hareket();
+
+            bool kosuyor = Input.GetKey(KeyCode.LeftShift);
+            anim.SetBool("Running", kosuyor);
+
         }
     }
     public bool YasiyorMu()
@@ -47,13 +52,18 @@ public class KarakterKontrol : MonoBehaviour
         anim.SetFloat("Horizontal", yatay);
         anim.SetFloat("Vertical", dikey);
 
+        float hiz = karakterHiz;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            hiz *= kosmaCarpani;
+        }
 
-        Vector3 hareket = new Vector3(yatay, 0, dikey);
+
+        Vector3 hareket = new Vector3(yatay, 0, dikey) * hiz * Time.deltaTime;
+        transform.Translate(hareket, Space.Self);
 
 
-        this.gameObject.transform.Translate(yatay * karakterHiz * Time.deltaTime, 0, dikey * karakterHiz * Time.deltaTime);
-
-
+        this.gameObject.transform.Translate(hareket);
         if (hareket != Vector3.zero)
         {
             transform.forward = hareket;
