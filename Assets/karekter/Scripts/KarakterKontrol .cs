@@ -7,7 +7,7 @@ public class KarakterKontrol : MonoBehaviour
     private Animator anim;
     [SerializeField] private float karakterHiz = 2f;
     [SerializeField] private float kosmaCarpani = 2f;
-    private float saglık = 100;
+    private float saglik = 100;
     bool hayattaMi;
 
     void Start()
@@ -19,7 +19,7 @@ public class KarakterKontrol : MonoBehaviour
     void Update()
     {
 
-        if (saglık <= 0)
+        if (saglik <= 0)
         {
             hayattaMi = false;
             anim.SetBool("yasiyorMu", hayattaMi);
@@ -34,13 +34,18 @@ public class KarakterKontrol : MonoBehaviour
 
         }
     }
+
+    public float GetSaglik()
+    {
+        return saglik;
+    }
     public bool YasiyorMu()
     {
         return hayattaMi;
     }
     public void HasarAl()
     {
-        saglık -= Random.Range(5, 15);
+        saglik -= Random.Range(5, 15);
 
     }
 

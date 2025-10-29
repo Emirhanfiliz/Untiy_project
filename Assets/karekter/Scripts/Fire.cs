@@ -57,7 +57,7 @@ public class Fire : MonoBehaviour
             anim.SetBool("sarjorDegistirme", false);
 
         }
-    
+
 
     public void AtesEtme()
     {
@@ -84,5 +84,15 @@ public class Fire : MonoBehaviour
                 dusman.HasarAl();
             }
         }
+    }
+
+    public float GetSarjor()
+    {
+        return sarjor;
+    }
+    
+    public float GetCephane()
+    {
+        return cephane;
     }
 }
