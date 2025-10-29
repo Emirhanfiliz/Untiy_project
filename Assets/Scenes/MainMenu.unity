@@ -578,17 +578,13 @@ MonoBehaviour:
   defaultBrightness: 1
   qualityDropdown: {fileID: 371856806}
   fullScreenToggle: {fileID: 344067515}
-<<<<<<<<< Temporary merge branch 1
-  confirmationPrompt: {fileID: 438272117}
-  _newGameLevel: Level1
-=========
   _qualityLevel: 0
   _isFullScreen: 0
   _brightnessLevel: 0
   confirmationPrompt: {fileID: 438272117}
   _newGameLevel: Level1
-  levelToLoad: 
->>>>>>>>> Temporary merge branch 2
+  levelToLoad:
+
   noSavedGameDialog: {fileID: 1888422128}
   resolutionDropdown: {fileID: 1826900543}
 --- !u!4 &69725590
