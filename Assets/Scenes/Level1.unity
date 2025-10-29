@@ -8180,11 +8180,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!4 &119704843 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 03a4a1935a9f4454c861dfa0aa6df562, type: 3}
-  m_PrefabInstance: {fileID: 272902428}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &119704845 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 19800000, guid: 03a4a1935a9f4454c861dfa0aa6df562, type: 3}
@@ -19887,7 +19882,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1836705731}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 100000, guid: 03a4a1935a9f4454c861dfa0aa6df562, type: 3}
       propertyPath: m_Name
@@ -66268,7 +66263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa59561d7a8e1f942b7b702878887798, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.01102
+      value: -11.91
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: aa59561d7a8e1f942b7b702878887798, type: 3}
       propertyPath: m_LocalRotation.w
@@ -66972,10 +66967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -597670272443537037, guid: aa59561d7a8e1f942b7b702878887798, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1836705731}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aa59561d7a8e1f942b7b702878887798, type: 3}
       insertIndex: -1
@@ -78317,11 +78309,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
   m_PrefabInstance: {fileID: 1518521676}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1099324746 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 466374, guid: 34300443486f64d6da09f6f748778306, type: 3}
-  m_PrefabInstance: {fileID: 1836371759}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1100765257 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 148600, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
@@ -85479,11 +85466,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!4 &1175708363 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -597670272443537037, guid: aa59561d7a8e1f942b7b702878887798, type: 3}
-  m_PrefabInstance: {fileID: 934525273}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1177569118 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100008, guid: 243ee49f20f63434c95b7cbe33beac48, type: 3}
@@ -133519,11 +133501,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1474608169}
   m_SourcePrefab: {fileID: 100100000, guid: 0156d82925fa4477e95bd73f098c846b, type: 3}
---- !u!4 &1836705731 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ec15fc588010b8143af5214dfd49bbe4, type: 3}
-  m_PrefabInstance: {fileID: 256989015}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1836917803 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 171960, guid: 33403cd954ab747f9989f98b1e34c139, type: 3}
@@ -143989,7 +143966,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1099468102}
   - {fileID: 1405486247}
   - {fileID: 704439737}
   - {fileID: 1859869728}
@@ -154939,7 +154915,6 @@ RectTransform:
   m_Children:
   - {fileID: 1918252877}
   - {fileID: 1948994813}
-  - {fileID: 256861186}
   - {fileID: 2105416147}
   m_Father: {fileID: 1227380894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -155055,3 +155030,4 @@ SceneRoots:
   - {fileID: 885313874}
   - {fileID: 2052620648}
   - {fileID: 1227380894}
+  - {fileID: 272902428}
