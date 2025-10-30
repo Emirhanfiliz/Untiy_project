@@ -9,9 +9,10 @@ public class Fire : MonoBehaviour
     KarakterKontrol hpKontrol;
     Animator anim;
 
-    private float sarjor = 5;
-    private float cephane = 10;
-    private float sarjorKapasitesi = 5;
+    private float sarjor = 30;
+    private float cephane = 240;
+    private float sarjorKapasitesi = 30;
+    private bool reloadYapiliyor = false;
 
     AudioSource sesKaynagi;
     public AudioClip atesSes;
@@ -28,52 +29,87 @@ public class Fire : MonoBehaviour
 
     void Update()
     {
-        if (hpKontrol.YasiyorMu() == true)
+        if (!hpKontrol.YasiyorMu()) return;
+
+        // Reload sırasında hiçbir işlem yapılmasın
+        if (reloadYapiliyor)
         {
-            if (Input.GetMouseButton(0))
+            anim.SetBool("atesEt", false);
+            return;
+        }
+
+        // Manuel reload (R tuşu)
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (sarjor < sarjorKapasitesi && cephane > 0)
             {
-                if (sarjor > 0)
-                {
-                    anim.SetBool("atesEt", true);
-                }
-                if (sarjor <= 0)
-                {
-                    anim.SetBool("atesEt", false);
-                }
-                if (sarjor <= 0 && cephane > 0)
-                {
-                    sesKaynagi.PlayOneShot(reloadSes);
-                    anim.SetBool("sarjorDegistirme", true);
-                    cephane -= sarjorKapasitesi - sarjor;
-                    sarjor = sarjorKapasitesi;
-                }
+                ReloadBaslat();
+                return;
             }
-            else
+        }
+
+        // Ateş etme
+        if (Input.GetMouseButton(0))
+        {
+            if (sarjor > 0)
+            {
+                anim.SetBool("atesEt", true);
+            }
+
+            if (sarjor <= 0)
             {
                 anim.SetBool("atesEt", false);
+                if (cephane > 0)
+                {
+                    ReloadBaslat();
+                }
             }
         }
-       
+        else
+        {
+            anim.SetBool("atesEt", false);
+        }
     }
-    public void SarjorDegistirme()
 
+    // Reload işlemini başlatan yardımcı fonksiyon
+    private void ReloadBaslat()
     {
-            cephane -= sarjorKapasitesi - sarjor;
-            sarjor = sarjorKapasitesi;
-            anim.SetBool("sarjorDegistirme", false);
+        // Her ihtimale karşı ateşi ve efektleri durdur
+        anim.SetBool("atesEt", false);
+        if (muzzle.isPlaying) muzzle.Stop();
 
+        sesKaynagi.PlayOneShot(reloadSes);
+        anim.SetBool("sarjorDegistirme", true);
+        reloadYapiliyor = true;
+    }
+
+    // Bu fonksiyonu reload animasyonunun son frame’ine event olarak ekle
+    public void SarjorDegistirme()
+    {
+        float eksikMermi = sarjorKapasitesi - sarjor;
+        if (cephane >= eksikMermi)
+        {
+            cephane -= eksikMermi;
+            sarjor = sarjorKapasitesi;
+        }
+        else
+        {
+            sarjor += cephane;
+            cephane = 0;
         }
 
+        anim.SetBool("sarjorDegistirme", false);
+        reloadYapiliyor = false;
+    }
 
     public void AtesEtme()
     {
+        if (reloadYapiliyor) return;
         if (kamera == null) kamera = Camera.main;
         if (kamera == null) return;
 
         if (sarjor > 0)
         {
-
-
             sarjor--;
             muzzle.Play();
             sesKaynagi.PlayOneShot(atesSes);
@@ -84,11 +120,10 @@ public class Fire : MonoBehaviour
             if (Physics.Raycast(ray, out hit, menzil, Ecikatman.value))
             {
                 Dusman dusman = hit.collider.GetComponent<Dusman>();
-                if (dusman == null)
+                if (dusman != null)
                 {
-                    return;
+                    dusman.HasarAl();
                 }
-                dusman.HasarAl();
             }
         }
     }
@@ -97,7 +132,7 @@ public class Fire : MonoBehaviour
     {
         return sarjor;
     }
-    
+
     public float GetCephane()
     {
         return cephane;
