@@ -5,96 +5,119 @@ using UnityEngine.AI;
 public class Dusman : MonoBehaviour
 {
     public float zombiHP = 100;
-    Animator zombiAnim;
-    bool zombiOlu;
+    private Animator zombiAnim;
+    private bool zombiOlu;
     public GameObject hedefOyuncu;
     public float Kovalamamesafe;
     public float saldirmaMesafesi;
-    float mesafe;
-    NavMeshAgent zombiNavMesh;
+    private float mesafe;
+    private NavMeshAgent zombiNavMesh;
 
-    AudioSource sesKaynagi;
+    private AudioSource sesKaynagi;
     public AudioClip saldirmaSesi;
 
-    // Cooldown ayarı
-    public float attackRate = 1f; // saniye başına 1 saldırı
+    public float attackRate = 1f;
     private float nextAttackTime = 0f;
+
+    // Patrol Script referansı
+    public Patrol patrolScript;
 
     void Start()
     {
-        zombiAnim = this.GetComponent<Animator>();
+        zombiAnim = GetComponent<Animator>();
         hedefOyuncu = GameObject.Find("Ch48_nonPBR");
-        zombiNavMesh = this.GetComponent<NavMeshAgent>();
-        sesKaynagi = this.GetComponent<AudioSource>();
+        zombiNavMesh = GetComponent<NavMeshAgent>();
+        sesKaynagi = GetComponent<AudioSource>();
+
+        patrolScript = GetComponent<Patrol>();
+        if (patrolScript != null)
+            patrolScript.enabled = true;  // Başlangıçta devriye aktif
     }
 
     void Update()
     {
         if (zombiHP <= 0)
         {
-            if(!zombiOlu) // sadece bir kere çalışsın
+            if(!zombiOlu)
             {
                 zombiOlu = true;
                 zombiAnim.SetBool("oldu", true);
-
-                // saldırı ve yürüme animasyonlarını kapat
                 zombiAnim.SetBool("saldiriyor", false);
                 zombiAnim.SetBool("yuruyor", false);
+                zombiAnim.SetBool("yavas", false);
 
                 zombiNavMesh.isStopped = true;
                 zombiNavMesh.enabled = false;
+
+                if(patrolScript != null)
+                    patrolScript.enabled = false;
 
                 StartCoroutine(Yokol());
             }
             return;
         }
 
-        // karakter hayatta mı kontrolü
         KarakterKontrol oyuncu = hedefOyuncu.GetComponent<KarakterKontrol>();
         if (!oyuncu.hayattaMi)
         {
             zombiAnim.SetBool("saldiriyor", false);
             zombiAnim.SetBool("yuruyor", false);
+            zombiAnim.SetBool("yavas", false);
+
+            if(patrolScript != null)
+                patrolScript.enabled = false;
+
             zombiNavMesh.isStopped = true;
             return;
         }
 
-        mesafe = Vector3.Distance(this.transform.position, hedefOyuncu.transform.position);
+        mesafe = Vector3.Distance(transform.position, hedefOyuncu.transform.position);
 
         if (mesafe < saldirmaMesafesi)
         {
-            // saldırma mesafesinde
+            // Saldırma
             zombiNavMesh.isStopped = true;
             zombiAnim.SetBool("yuruyor", false);
             zombiAnim.SetBool("saldiriyor", true);
-            this.transform.LookAt(hedefOyuncu.transform.position);
+            zombiAnim.SetBool("yavas", false);
+
+            if(patrolScript != null)
+                patrolScript.enabled = false;
+
+            transform.LookAt(hedefOyuncu.transform.position);
         }
         else if (mesafe < Kovalamamesafe)
         {
-            // kovalama mesafesinde
+            // Kovalama
             zombiNavMesh.isStopped = false;
             zombiNavMesh.SetDestination(hedefOyuncu.transform.position);
             zombiAnim.SetBool("yuruyor", true);
             zombiAnim.SetBool("saldiriyor", false);
-            this.transform.LookAt(hedefOyuncu.transform.position);
+            zombiAnim.SetBool("yavas", false);
+
+            if(patrolScript != null)
+                patrolScript.enabled = false;
+
+            transform.LookAt(hedefOyuncu.transform.position);
         }
         else
         {
-            // uzak
-            zombiNavMesh.isStopped = true;
-            zombiAnim.SetBool("yuruyor", false);
+            // Uzak → Patrol devriye başlasın
             zombiAnim.SetBool("saldiriyor", false);
+            zombiAnim.SetBool("yuruyor", false);
+
+            if(patrolScript != null)
+                patrolScript.enabled = true;  // Devriye başlasın
         }
     }
 
-    // Bu fonksiyon attack animasyonunun vuracağı frame'ine animation event ile eklenmeli
     public void HasarVer()
     {
         KarakterKontrol oyuncu = hedefOyuncu.GetComponent<KarakterKontrol>();
-        if (zombiOlu || !oyuncu.hayattaMi) return; // zombi ölü veya karakter ölü ise saldırma
-        if (Time.time < nextAttackTime) return; // cooldown kontrolü
+        if (zombiOlu || !oyuncu.hayattaMi) return;
+        if (Time.time < nextAttackTime) return;
 
-        mesafe = Vector3.Distance(this.transform.position, hedefOyuncu.transform.position);
+        mesafe = Vector3.Distance(transform.position, hedefOyuncu.transform.position);
         if (mesafe <= saldirmaMesafesi)
         {
             sesKaynagi.PlayOneShot(saldirmaSesi);
@@ -106,7 +129,7 @@ public class Dusman : MonoBehaviour
     IEnumerator Yokol()
     {
         yield return new WaitForSeconds(10);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     public void HasarAl()
