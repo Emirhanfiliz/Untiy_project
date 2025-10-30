@@ -36,9 +36,26 @@ public class Dusman : MonoBehaviour
             {
                 zombiOlu = true;
                 zombiAnim.SetBool("oldu", true);
-                StartCoroutine(Yokol());
+
+                // saldırı ve yürüme animasyonlarını kapat
+                zombiAnim.SetBool("saldiriyor", false);
+                zombiAnim.SetBool("yuruyor", false);
+
                 zombiNavMesh.isStopped = true;
+                zombiNavMesh.enabled = false;
+
+                StartCoroutine(Yokol());
             }
+            return;
+        }
+
+        // karakter hayatta mı kontrolü
+        KarakterKontrol oyuncu = hedefOyuncu.GetComponent<KarakterKontrol>();
+        if (!oyuncu.hayattaMi)
+        {
+            zombiAnim.SetBool("saldiriyor", false);
+            zombiAnim.SetBool("yuruyor", false);
+            zombiNavMesh.isStopped = true;
             return;
         }
 
@@ -73,13 +90,15 @@ public class Dusman : MonoBehaviour
     // Bu fonksiyon attack animasyonunun vuracağı frame'ine animation event ile eklenmeli
     public void HasarVer()
     {
+        KarakterKontrol oyuncu = hedefOyuncu.GetComponent<KarakterKontrol>();
+        if (zombiOlu || !oyuncu.hayattaMi) return; // zombi ölü veya karakter ölü ise saldırma
         if (Time.time < nextAttackTime) return; // cooldown kontrolü
 
         mesafe = Vector3.Distance(this.transform.position, hedefOyuncu.transform.position);
         if (mesafe <= saldirmaMesafesi)
         {
             sesKaynagi.PlayOneShot(saldirmaSesi);
-            hedefOyuncu.GetComponent<KarakterKontrol>().HasarAl();
+            oyuncu.HasarAl();
             nextAttackTime = Time.time + attackRate;
         }
     }
@@ -92,6 +111,7 @@ public class Dusman : MonoBehaviour
 
     public void HasarAl()
     {
+        if (zombiOlu) return;
         zombiHP -= Random.Range(15, 25);
     }
 }

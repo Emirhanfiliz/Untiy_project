@@ -11,7 +11,7 @@ public class KarakterKontrol : MonoBehaviour
 
     public HealthBar healthBar;
     private float saglik;
-    bool hayattaMi;
+    public bool hayattaMi;
 
     void Start()
     {
