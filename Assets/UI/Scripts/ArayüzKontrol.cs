@@ -5,7 +5,7 @@ using TMPro;
 public class ArayüzKontrol : MonoBehaviour
 {
     public TextMeshProUGUI mermiText;
-    public TextMeshProUGUI saglikText;
+     public HealthBar healthBar;
 
     GameObject oyuncu;
 
@@ -18,7 +18,7 @@ public class ArayüzKontrol : MonoBehaviour
     void Update()
     {
         mermiText.text = oyuncu.GetComponent<Fire>().GetSarjor().ToString() + "/" + oyuncu.GetComponent<Fire>().GetCephane().ToString();
-        saglikText.text = "HP:" + oyuncu.GetComponent<KarakterKontrol>().GetSaglik().ToString();
+        healthBar.SetHealth(oyuncu.GetComponent<KarakterKontrol>().GetSaglik());
     }
 
 }
