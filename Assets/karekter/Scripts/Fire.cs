@@ -13,12 +13,17 @@ public class Fire : MonoBehaviour
     private float cephane = 10;
     private float sarjorKapasitesi = 5;
 
+    AudioSource sesKaynagi;
+    public AudioClip atesSes;
+    public AudioClip reloadSes;
+
     void Start()
     {
         kamera = Camera.main;
         if (kamera == null) Debug.LogError("Main Camera bulunamadı. Kamera'nın Tag'i 'MainCamera' mı?");
         hpKontrol = this.gameObject.GetComponent<KarakterKontrol>();
         anim = this.gameObject.GetComponent<Animator>();
+        sesKaynagi = this.gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -37,6 +42,7 @@ public class Fire : MonoBehaviour
                 }
                 if (sarjor <= 0 && cephane > 0)
                 {
+                    sesKaynagi.PlayOneShot(reloadSes);
                     anim.SetBool("sarjorDegistirme", true);
                     cephane -= sarjorKapasitesi - sarjor;
                     sarjor = sarjorKapasitesi;
@@ -50,8 +56,8 @@ public class Fire : MonoBehaviour
        
     }
     public void SarjorDegistirme()
-     
-        {
+
+    {
             cephane -= sarjorKapasitesi - sarjor;
             sarjor = sarjorKapasitesi;
             anim.SetBool("sarjorDegistirme", false);
@@ -70,6 +76,7 @@ public class Fire : MonoBehaviour
 
             sarjor--;
             muzzle.Play();
+            sesKaynagi.PlayOneShot(atesSes);
 
             Ray ray = kamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
             RaycastHit hit;
