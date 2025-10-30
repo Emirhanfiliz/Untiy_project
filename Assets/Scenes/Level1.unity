@@ -88373,7 +88373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombiHP: 100
   hedefOyuncu: {fileID: 0}
-  Kovalamamesafe: 6
+  Kovalamamesafe: 15
   saldirmaMesafesi: 1.2
   saldirmaSesi: {fileID: 8300000, guid: da4ea0a5b4018f442963592e59ef2780, type: 3}
 --- !u!95 &1226850297

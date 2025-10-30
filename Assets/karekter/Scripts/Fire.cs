@@ -9,9 +9,9 @@ public class Fire : MonoBehaviour
     KarakterKontrol hpKontrol;
     Animator anim;
 
-    private float sarjor = 5;
-    private float cephane = 10;
-    private float sarjorKapasitesi = 5;
+    private float sarjor = 30;
+    private float cephane = 240;
+    private float sarjorKapasitesi = 30;
 
     AudioSource sesKaynagi;
     public AudioClip atesSes;
