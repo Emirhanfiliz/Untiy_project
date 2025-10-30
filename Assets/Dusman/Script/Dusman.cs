@@ -13,11 +13,17 @@ public class Dusman : MonoBehaviour
     float mesafe;
     NavMeshAgent zombiNavMesh;
 
+    GameObject oyuncu;
+
+    AudioSource sesKaynagi;
+    public AudioClip saldirmaSesi;
+
     void Start()
     {
         zombiAnim = this.GetComponent<Animator>();
         hedefOyuncu = GameObject.Find("Ch48_nonPBR");
         zombiNavMesh = this.GetComponent<NavMeshAgent>();
+        sesKaynagi = this.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -63,6 +69,7 @@ public class Dusman : MonoBehaviour
     }
     public void HasarVer()
     {
+        sesKaynagi.PlayOneShot(saldirmaSesi);
         hedefOyuncu.GetComponent<KarakterKontrol>().HasarAl();
     }
     IEnumerator Yokol()
