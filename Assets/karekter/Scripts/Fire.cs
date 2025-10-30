@@ -12,6 +12,7 @@ public class Fire : MonoBehaviour
     private float sarjor = 30;
     private float cephane = 240;
     private float sarjorKapasitesi = 30;
+    private bool reloadYapiliyor = false; // reload sırasında ateşi engellemek için
 
     AudioSource sesKaynagi;
     public AudioClip atesSes;
@@ -30,22 +31,30 @@ public class Fire : MonoBehaviour
     {
         if (hpKontrol.YasiyorMu() == true)
         {
+            // Reload sırasında ateş etmeyi tamamen engelle
+            if (reloadYapiliyor)
+            {
+                anim.SetBool("atesEt", false);
+                return;
+            }
+
             if (Input.GetMouseButton(0))
             {
                 if (sarjor > 0)
                 {
                     anim.SetBool("atesEt", true);
                 }
+
                 if (sarjor <= 0)
                 {
                     anim.SetBool("atesEt", false);
                 }
+
                 if (sarjor <= 0 && cephane > 0)
                 {
                     sesKaynagi.PlayOneShot(reloadSes);
                     anim.SetBool("sarjorDegistirme", true);
-                    cephane -= sarjorKapasitesi - sarjor;
-                    sarjor = sarjorKapasitesi;
+                    reloadYapiliyor = true;
                 }
             }
             else
@@ -53,27 +62,27 @@ public class Fire : MonoBehaviour
                 anim.SetBool("atesEt", false);
             }
         }
-       
     }
+
+    // Bu fonksiyonu animasyonun sonuna (Reload bittiği frame'e) Animation Event olarak ekle
     public void SarjorDegistirme()
-
     {
-            cephane -= sarjorKapasitesi - sarjor;
-            sarjor = sarjorKapasitesi;
-            anim.SetBool("sarjorDegistirme", false);
+        cephane -= sarjorKapasitesi - sarjor;
+        sarjor = sarjorKapasitesi;
+        anim.SetBool("sarjorDegistirme", false);
 
-        }
-
+        // reload bitince ateş etmeye tekrar izin ver ama otomatik ateşlenmesin
+        reloadYapiliyor = false;
+    }
 
     public void AtesEtme()
     {
+        if (reloadYapiliyor) return; // reload sırasında ateş etme
         if (kamera == null) kamera = Camera.main;
         if (kamera == null) return;
 
         if (sarjor > 0)
         {
-
-
             sarjor--;
             muzzle.Play();
             sesKaynagi.PlayOneShot(atesSes);
@@ -97,7 +106,7 @@ public class Fire : MonoBehaviour
     {
         return sarjor;
     }
-    
+
     public float GetCephane()
     {
         return cephane;
