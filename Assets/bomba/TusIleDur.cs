@@ -10,7 +10,7 @@ public class TusIleDur : MonoBehaviour
 
     void Start()
     {
-        oyuncu = GameObject.FindGameObjectWithTag("Oyuncu").transform;
+        oyuncu = GameObject.FindGameObjectWithTag("Player").transform;
         if(oyuncu == null)
         {
             Debug.LogError("Oyuncu tag'i bulunamadı! Oyuncu objesine 'Oyuncu' tag'i ekle.");

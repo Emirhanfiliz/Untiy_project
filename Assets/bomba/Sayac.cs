@@ -1,17 +1,34 @@
 using UnityEngine;
-using TMPro; // TextMeshPro kullanıyorsan
+using TMPro;
 
 public class GeriSayim : MonoBehaviour
 {
-    public TMP_Text sayacText; // UI Text
-    public float toplamSure = 300f; // 5 dakika = 300 saniye
+    // === Süre ve Metin Ayarları ===
+    public TMP_Text sayacText;
+    public float toplamSure = 180f;
     private float kalanSure;
     private bool durdur = false;
+    private bool patladiMi = false;
+
+    // === Ses Ayarları ===
+    [Header("Ses Ayarları")]
+    public AudioSource audioSource; // Audio Source bileşeni Inspector'dan bağlanacak
+    public AudioClip bipSound;      // Bip ses dosyası Inspector'dan bağlanacak
+    
+    // Sesin hızlanma kontrolü
+    private bool hizlanmaBasladi = false; 
 
     void Start()
     {
         kalanSure = toplamSure;
         UpdateText();
+        
+        // Ses çalmayı başlat
+        if (audioSource != null && bipSound != null)
+        {
+            audioSource.clip = bipSound;
+            audioSource.Play(); // Loop açıksa sürekli çalmaya başlar
+        }
     }
 
     void Update()
@@ -19,7 +36,22 @@ public class GeriSayim : MonoBehaviour
         if (!durdur && kalanSure > 0f)
         {
             kalanSure -= Time.deltaTime;
-            if (kalanSure < 0f) kalanSure = 0f;
+            
+            // SON 10 SANİYE KONTROLÜ (Gerilimi artır)
+            if (kalanSure <= 10f && !hizlanmaBasladi)
+            {
+                // Sesin çalma hızını (pitch) artır
+                audioSource.pitch = 1.5f; 
+                hizlanmaBasladi = true;
+            }
+            
+            if (kalanSure <= 0f)
+            {
+                kalanSure = 0f;
+                durdur = true;
+                Patlat();
+            }
+
             UpdateText();
         }
     }
@@ -33,17 +65,37 @@ public class GeriSayim : MonoBehaviour
 
     public void DurdurSayac()
     {
-        durdur = true;
+        if (kalanSure > 0f && !durdur)
+        {
+            durdur = true;
+            
+            // İMHA ANINDA SESİ DURDUR
+            if (audioSource != null)
+            {
+                audioSource.Stop(); 
+                audioSource.pitch = 1f; // Pitch'i sıfırla
+            }
+            
+            sayacText.text = "GOREV BASARILI!!";
+            Debug.Log("Bomba Başarıyla İmha Edildi! Savunmacılar Kazandı.");
+        }
     }
-
-    public void BaslatSayac()
+    
+    void Patlat()
     {
-        durdur = false;
-    }
-
-    public void Sifirla()
-    {
-        kalanSure = toplamSure;
-        UpdateText();
+        if (patladiMi) return;
+        
+        patladiMi = true;
+        
+        // PATLAMA ANINDA SESİ DURDUR
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+            audioSource.pitch = 1f; // Pitch'i sıfırla
+            // Opsiyonel: Burada tek seferlik bir patlama sesi çalabilirsiniz.
+        }
+        
+        sayacText.text = "PATLAMA!";
+        Debug.Log("BOOM! Bomba Patladı! Saldırganlar Kazandı.");
     }
 }
