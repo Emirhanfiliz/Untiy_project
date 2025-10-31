@@ -5,6 +5,11 @@ using UnityEngine;
 public class KarakterKontrol : MonoBehaviour
 {
     private Animator anim;
+    
+    private Rigidbody rb;
+    [SerializeField] private float ziplamaKuvveti = 7f; 
+    [SerializeField] private bool yerdeMi = true;
+
     [SerializeField] private float karakterHiz = 2f;
     [SerializeField] private float kosmaCarpani = 2f;
     [SerializeField] private float maxSaglik = 100f;
@@ -16,6 +21,8 @@ public class KarakterKontrol : MonoBehaviour
     void Start()
     {
         anim = this.GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>(); 
+
         hayattaMi = true;
         saglik = maxSaglik;
         healthBar.GiveFullHealth(saglik);
@@ -26,12 +33,38 @@ public class KarakterKontrol : MonoBehaviour
         if (hayattaMi == true)
         {
             Hareket();
+            ZıplamaKontrol();
 
             bool kosuyor = Input.GetKey(KeyCode.LeftShift);
             anim.SetBool("Running", kosuyor);
         }
     }
 
+    void ZıplamaKontrol()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && yerdeMi)
+        {
+            Zıpla();
+        }
+    }
+    
+    void Zıpla()
+    {
+        rb.AddForce(Vector3.up * ziplamaKuvveti, ForceMode.Impulse);
+        yerdeMi = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!yerdeMi && collision.contacts.Length > 0)
+        {
+            if (Vector3.Dot(collision.contacts[0].normal, Vector3.up) > 0.5f) 
+            {
+                yerdeMi = true;
+            }
+        }
+    }
+    
     public float GetSaglik()
     {
         return saglik;
@@ -79,17 +112,14 @@ public class KarakterKontrol : MonoBehaviour
             hiz *= kosmaCarpani;
         }
 
-        Vector3 hareket = new Vector3(yatay, 0, dikey) * hiz * Time.deltaTime;
+        Vector3 hareket = new Vector3(yatay, 0, dikey).normalized * hiz * Time.deltaTime;
         
-        // Bu iki satır birbirini tekrar ediyor. İlkini (Space.Self olanı) kullanmak genellikle daha iyidir.
-        // Eğer ikisini de kullanmakta ısrarcıysanız, transform.Translate(hareket, Space.Self); satırını kaldırabilirsiniz.
         transform.Translate(hareket, Space.Self); 
-        this.gameObject.transform.Translate(hareket);
-        
+        // this.gameObject.transform.Translate(hareket); // Tekrar eden satırı kaldırdım
 
-        if (hareket != Vector3.zero)
+        if (hareket.magnitude > 0)
         {
-            transform.forward = hareket;
+            transform.forward = new Vector3(yatay, 0, dikey).normalized;
         }
     }
 }
