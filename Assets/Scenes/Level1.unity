@@ -88002,9 +88002,9 @@ MonoBehaviour:
   saldirmaMesafesi: 1.2
   saldirmaSesi: {fileID: 8300000, guid: da4ea0a5b4018f442963592e59ef2780, type: 3}
   attackRate: 1
-  temelHiz: 3.5
+  temelHiz: 2
   kovalamaHizi: 4
-  patrolScript: {fileID: 0}
+  patrolScript: {fileID: 1226850304}
 --- !u!95 &1226850297
 Animator:
   serializedVersion: 7
