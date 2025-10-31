@@ -10445,6 +10445,33 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43cae7f98873e473d96789cc6276b26f, type: 3}
+--- !u!1 &150031674 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
+  m_PrefabInstance: {fileID: 212704490}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &150031678
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150031674}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 6ac34d201e63e47eca737e77672606eb, type: 3}
 --- !u!1001 &150481172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15760,6 +15787,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 111332, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1779511639}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 150031678}
   m_SourcePrefab: {fileID: 100100000, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
 --- !u!1001 &215487891
 PrefabInstance:
@@ -17627,6 +17657,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: 0fa0f7adcd5084445ad2d722cecf73f2, type: 3}
   m_PrefabInstance: {fileID: 908912311}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &246945962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
+  m_PrefabInstance: {fileID: 1926603468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &246945966
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246945962}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 6ac34d201e63e47eca737e77672606eb, type: 3}
 --- !u!4 &248928591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: fb7ea84b5181a43e5a7fbc8a83a564ab, type: 3}
@@ -63214,6 +63271,14 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 656017537}
+    - target: {fileID: 8132190068578262008, guid: eedda548c67663140a2c4313108a97df, type: 3}
+      propertyPath: kosmaCarpani
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8132190068578262008, guid: eedda548c67663140a2c4313108a97df, type: 3}
+      propertyPath: ziplamaKuvveti
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8796858714361267134, guid: eedda548c67663140a2c4313108a97df, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 45.691273
@@ -87937,6 +88002,8 @@ MonoBehaviour:
   saldirmaMesafesi: 1.2
   saldirmaSesi: {fileID: 8300000, guid: da4ea0a5b4018f442963592e59ef2780, type: 3}
   attackRate: 1
+  temelHiz: 3.5
+  kovalamaHizi: 4
   patrolScript: {fileID: 0}
 --- !u!95 &1226850297
 Animator:
@@ -87970,7 +88037,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 3.5
+  m_Speed: 4
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -88136,14 +88203,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1fd92e7cc50f498ca99a886ae013169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  devriyeNoktalari:
-  - {fileID: 315431803}
-  - {fileID: 1860863919}
-  mevcutNoktaIndex: 0
-  agent: {fileID: 0}
-  anim: {fileID: 0}
-  devriyeHizi: 2
-  devriyeAktif: 1
 --- !u!114 &1226850304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139933,8 +139992,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
       propertyPath: m_LightmapIndex
       value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
       propertyPath: m_LightmapTilingOffset.w
@@ -140034,6 +140101,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 111332, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1122747333}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 246945966}
   m_SourcePrefab: {fileID: 100100000, guid: e2bb8688208ec4855995dc3671b6c8a8, type: 3}
 --- !u!1 &1926685348 stripped
 GameObject:

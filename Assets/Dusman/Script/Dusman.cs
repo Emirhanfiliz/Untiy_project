@@ -18,6 +18,11 @@ public class Dusman : MonoBehaviour
 
     public float attackRate = 1f;
     private float nextAttackTime = 0f;
+    
+    // Hız Ayarları
+    [Header("Hız Ayarları")]
+    [SerializeField] private float temelHiz = 3.5f; // Devriye/Başlangıç Hızı
+    [SerializeField] private float kovalamaHizi = 4.0f; // Kovalama sırasındaki sabit hız
 
     // Patrol Script referansı
     public Patrol patrolScript;
@@ -32,6 +37,9 @@ public class Dusman : MonoBehaviour
         patrolScript = GetComponent<Patrol>();
         if (patrolScript != null)
             patrolScript.enabled = true;  // Başlangıçta devriye aktif
+            
+        // Başlangıç hızı olarak temel hızı ata
+        zombiNavMesh.speed = temelHiz;
     }
 
     void Update()
@@ -85,11 +93,18 @@ public class Dusman : MonoBehaviour
                 patrolScript.enabled = false;
 
             transform.LookAt(hedefOyuncu.transform.position);
+            
+            // Saldırıya geçince hızı temel devriye hızına çek (Daha sabit bir duruş için)
+            zombiNavMesh.speed = temelHiz;
         }
         else if (mesafe < Kovalamamesafe)
         {
             // Kovalama
             zombiNavMesh.isStopped = false;
+            
+            // Hızı doğrudan Kovalama Hızına ayarla (4.0f)
+            zombiNavMesh.speed = kovalamaHizi; 
+            
             zombiNavMesh.SetDestination(hedefOyuncu.transform.position);
             zombiAnim.SetBool("yuruyor", true);
             zombiAnim.SetBool("saldiriyor", false);
@@ -105,6 +120,9 @@ public class Dusman : MonoBehaviour
             // Uzak → Patrol devriye başlasın
             zombiAnim.SetBool("saldiriyor", false);
             zombiAnim.SetBool("yuruyor", false);
+            
+            // Devriye hızı her zaman temel hız olsun
+            zombiNavMesh.speed = temelHiz; 
 
             if(patrolScript != null)
                 patrolScript.enabled = true;  // Devriye başlasın
