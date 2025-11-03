@@ -31,12 +31,17 @@ public class GeriSayim : MonoBehaviour
     {
         kalanSure = toplamSure;
         UpdateText();
-        
+
         // Başlangıçta büyük geri bildirim metnini gizle
         if (feedbackText != null)
         {
             feedbackText.gameObject.SetActive(false);
         }
+        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
+        Time.timeScale = 1f;
         
         // Ses çalmayı başlat
         if (audioSource != null && bipSound != null)
@@ -96,7 +101,7 @@ public class GeriSayim : MonoBehaviour
             if (feedbackText != null)
             {
                  feedbackText.gameObject.SetActive(true);
-                 feedbackText.text = "GÖREV BAŞARILI!!\nAna Menüye Yönlendiriliyorsunuz...";
+                 feedbackText.text = "GOREV BASARILI!\nMENUYE YONLENDIRILIYORSUNUZ";
             }
 
             Debug.Log("Bomba Başarıyla İmha Edildi! Savunmacılar Kazandı.");
@@ -105,42 +110,45 @@ public class GeriSayim : MonoBehaviour
             Invoke("LoadMainMenu", 3f);
         }
     }
-    
     void Patlat()
+{
+    if (patladiMi) return;
+    
+    patladiMi = true;
+    
+    
+    if (audioSource != null)
     {
-        if (patladiMi) return;
-        
-        patladiMi = true;
-        
-        // PATLAMA ANINDA SESİ DURDUR
-        if (audioSource != null)
-        {
-            audioSource.Stop();
-            audioSource.pitch = 1f;
-        }
-        
-        // OYUN SONU MESAJI
-        sayacText.gameObject.SetActive(false); 
-        
-        if (feedbackText != null)
+        audioSource.Stop();
+        audioSource.pitch = 1f;
+    }
+    
+    // OYUN SONU MESAJI
+    sayacText.gameObject.SetActive(false); 
+    
+    if (feedbackText != null)
     {
         feedbackText.gameObject.SetActive(true);
         
-        // YENİ: Rengi ve Boyutu kodla zorluyoruz
-        feedbackText.color = Color.red; // Mesajı parlak kırmızı yap
-        feedbackText.fontSize = 72;     // Yazı boyutunu büyük yap
         
-        feedbackText.text = "GÖREV BAŞARISIZ! (Patlama)\nAna Menüye Yönlendiriliyorsunuz...";
+        
+       feedbackText.text = "GOREV BASARISIZ \nMENUYE YONLENDIRILIYORSUNUZ";
+    
     }
-        
-        Debug.Log("BOOM! Bomba Patladı! Saldırganlar Kazandı.");
-        
-        // 3 saniye sonra ana menüye git
-        Invoke("LoadMainMenu", 3f);
-    }
+    
+    Debug.Log("BOOM! Bomba Patladı! Saldırganlar Kazandı.");
+    
+    
+    Invoke("LoadMainMenu", 3f);
+}
 
     void LoadMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+      SceneManager.LoadScene("MainMenu");
     }
 }

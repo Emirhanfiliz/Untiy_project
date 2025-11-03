@@ -96,7 +96,14 @@ public class MenuController : MonoBehaviour
 
     public void NewGameDialogYes()
     {
+        Debug.Log("NewGameDialogYes çağrıldı. Time.timeScale = 1 yapılıyor.");
+        Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;
+
         SceneManager.LoadScene(_newGameLevel);
+        Debug.Log("Sahne yükleme komutu verildi.");
     }
 
     public void LoadGameDialogYes()

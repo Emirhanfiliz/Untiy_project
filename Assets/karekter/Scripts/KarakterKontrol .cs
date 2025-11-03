@@ -26,6 +26,12 @@ public class KarakterKontrol : MonoBehaviour
         hayattaMi = true;
         saglik = maxSaglik;
         healthBar.GiveFullHealth(saglik);
+
+        Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
     }
 
     void Update()
