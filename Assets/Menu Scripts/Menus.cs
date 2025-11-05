@@ -70,6 +70,7 @@ public class Menus : MonoBehaviour
         SaveGameData();
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+        Debug.Log("Oyun kaydedildi ve Ana Menü'ye dönüldü.");
     }
 
     public void LoadOptions()
@@ -103,28 +104,28 @@ public class Menus : MonoBehaviour
     }
 
 
-    public void QuitGame()
-    {
-        SaveGameData(); 
-        Time.timeScale = 1f;
+public void QuitGame()
+{
+    SaveGameData(); 
+    Time.timeScale = 1f;
 
-        
-        SceneManager.LoadScene("MainMenu");
+    // Menüye dönerken fare imlecini görünür yapmayı unutmayın
+    Cursor.lockState = CursorLockMode.None;
+    Cursor.visible = true;
 
-        
-        #if UNITY_STANDALONE
-            Application.Quit();
-        #endif
-
-        Debug.Log("Oyun kaydedildi ve ana menüye dönüldü.");
-    }
+    SceneManager.LoadScene("MainMenu");
+    // Application.Quit() satırını buradan kaldırmanız en doğrusudur.
+}
     
     private void SaveGameData()
-    {
-        PlayerPrefs.SetString("SavedLevel", SceneManager.GetActiveScene().name);
-        PlayerPrefs.Save();
-        Debug.Log("Oyun verileri kaydedildi.");
-    }
+{
+    // Kaydedilen sahne adını konsola yazdırın
+    string sceneToSave = SceneManager.GetActiveScene().name;
+    PlayerPrefs.SetString("SavedLevel", sceneToSave);
+    PlayerPrefs.Save();
+    
+    Debug.Log("SAVE CHECK: Oyun verileri kaydedildi. Anahtar: SavedLevel | Değer: " + sceneToSave);
+}
 
     public void ApplicationQuit()
     {
