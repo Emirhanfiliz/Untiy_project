@@ -12,7 +12,6 @@ Oyunun genel mimarisi şu bileşenleri içerir:
 - **UI Yönetimi:** HUD (can, puan, zamanlayıcı)  
 - **Veri/Asset Yönetimi:** Addressables veya Resources sistemi  
 
-Şema dosyası `docs/SistemDiagramı.png` klasörüne eklenecektir.
 
 ## 3. Oyun Mekanikleri – Blok Diyagram  
 Temel akış:  
@@ -24,8 +23,6 @@ Projede bulunan başlıca sahneler:
 - **Giriş Menüsü (Main Menu):** Oyuna başla, ayarlar, çıkış seçenekleri.  
 - **Oyun Sahnesi (Game Scene):** Ana oynanış alanı — oyuncu kontrolü, düşmanlar, bomba, HUD.  
 - **Ayarlar (Settings):** Ses ayarları, zorluk seviyesi değişimi.  
-
-> Bu projede ayrı bir sonuç ekranı kullanılmamıştır. Oyun durumu HUD ve menüler üzerinden yönetilmektedir.
 
 ## 5. Literatür Taraması ve Esinlenme  
 Bu proje, **Half-Life** serisindeki görev temelli ilerleyiş ve ortam atmosferinden esinlenilmiştir.  
