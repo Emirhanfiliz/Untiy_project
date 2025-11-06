@@ -32,7 +32,7 @@ Bu yapı, oyuncuya hem aksiyon hem de stratejik düşünme becerilerini bir arad
 Bizim projemizde ise bu konsept sadeleştirilerek, **bomba patlamadan önce düşmanları etkisiz hale getirip bombayı durdurma** üzerine odaklanılmıştır.  
 Half-Life’taki görev atmosferi, çevresel gerilim ve zaman baskısı duygusu referans alınarak tasarlanmıştır.  
 Oyundaki yapay zekâ sistemi ileri seviye davranış modelleri yerine, **Unity NavMesh** kullanılarak basitleştirilmiş bir şekilde uygulanmıştır.  
-Bu sayede oyuncu, tıpkı Half-Life’ta olduğu gibi çevresel farkındalık, hareket ve zaman yönetimi unsurlarını bir arada deneyimlemektedir.
+
 
 
 ## 6. Yazılımsal Mimari, Yöntemler ve Teknikler  
