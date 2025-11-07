@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class KarakterKontrol : MonoBehaviour
 {
+
+   [Header("Ölüm ve Menü Yönetimi")]
+    public GameObject gameOverYazisi; 
+    public string mainMenuSceneName = "MainMenu"; 
+    [SerializeField] private float beklemeSuresi = 3f;
+
     private Animator anim;
     
     private Rigidbody rb;
@@ -85,24 +92,42 @@ public class KarakterKontrol : MonoBehaviour
     {
         return hayattaMi;
     }
-    
-    public void HasarAl()
-    {
-        saglik -= Random.Range(5, 15);
-        
-        if (saglik < 0)
-        {
-            saglik = 0;
-        }
 
-        healthBar.SetHealth(saglik);
-        
-        if (saglik <= 0 && hayattaMi)
-        {
-            hayattaMi = false;
-            anim.SetBool("yasiyorMu", hayattaMi);
-        }
+   public void HasarAl()
+{
+    saglik -= Random.Range(5, 15);
+
+    if (saglik < 0)
+    {
+        saglik = 0;
     }
+
+    healthBar.SetHealth(saglik);
+
+    if (saglik <= 0 && hayattaMi)
+    {
+        hayattaMi = false;
+        anim.SetBool("yasiyorMu", hayattaMi);
+        
+        StartCoroutine(OlumSonrasiAkis());
+    }
+}
+    
+    IEnumerator OlumSonrasiAkis()
+{
+    
+    if (gameOverYazisi != null)
+    {
+        gameOverYazisi.SetActive(true);
+    }
+
+    
+    yield return new WaitForSecondsRealtime(beklemeSuresi); 
+
+    
+    Time.timeScale = 1f; 
+    SceneManager.LoadScene(mainMenuSceneName);
+}
 
     void Hareket()
     {
@@ -119,13 +144,19 @@ public class KarakterKontrol : MonoBehaviour
         }
 
         Vector3 hareket = new Vector3(yatay, 0, dikey).normalized * hiz * Time.deltaTime;
+
+        transform.Translate(hareket, Space.Self);
         
-        transform.Translate(hareket, Space.Self); 
-        // this.gameObject.transform.Translate(hareket); // Tekrar eden satırı kaldırdım
 
         if (hareket.magnitude > 0)
         {
             transform.forward = new Vector3(yatay, 0, dikey).normalized;
         }
     }
+    public void AnaMenuyeDon()
+{
+    Time.timeScale = 1f; 
+    
+    SceneManager.LoadScene(mainMenuSceneName);
+}
 }
