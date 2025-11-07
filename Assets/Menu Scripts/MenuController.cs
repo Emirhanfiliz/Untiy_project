@@ -1,13 +1,12 @@
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.Rendering;
 using System.Collections.Generic;
-using UnityEditor.Rendering.Fullscreen.ShaderGraph;
+// using Unity.VisualScripting; // Kullanılmayanlar temizlendi
+// using UnityEditor.Rendering.Fullscreen.ShaderGraph; // Kullanılmayanlar temizlendi
 
 
 public class MenuController : MonoBehaviour
@@ -43,14 +42,13 @@ public class MenuController : MonoBehaviour
     private float _brightnessLevel;
 
 
-
-
     [Header("Comfirmation")]
     [SerializeField] private GameObject confirmationPrompt = null;
 
     [Header("Levels To Load")]
 
-    public string _newGameLevel = "Example_01";
+    // Örnek sahne adını varsayılan olarak ayarlayın
+    public string _newGameLevel = "Level1"; 
     private string levelToLoad;
     [SerializeField] private GameObject noSavedGameDialog = null;
 
@@ -92,8 +90,6 @@ public class MenuController : MonoBehaviour
     }
 
 
-
-
     public void NewGameDialogYes()
     {
         Debug.Log("NewGameDialogYes çağrıldı. Time.timeScale = 1 yapılıyor.");
@@ -106,17 +102,49 @@ public class MenuController : MonoBehaviour
         Debug.Log("Sahne yükleme komutu verildi.");
     }
 
+    // ⭐ Load Game Fonksiyonu (Kaydın varlığını kontrol eder ve yükler)
     public void LoadGameDialogYes()
+{
+    Debug.Log("LOAD CHECK: LoadGameDialogYes çağrıldı.");
+    
+    if (PlayerPrefs.HasKey("SavedLevel"))
     {
-        if (PlayerPrefs.HasKey("SavedLevel"))
+        levelToLoad = PlayerPrefs.GetString("SavedLevel");
+        
+        Debug.Log("LOAD CHECK: Kayıt bulundu. Yüklenmek istenen sahne adı: " + levelToLoad);
+        
+        // ❌ Hatanın en yaygın kaynağı burası: Eğer sahne adı boş geliyorsa
+        if (string.IsNullOrEmpty(levelToLoad))
         {
-            levelToLoad = PlayerPrefs.GetString("SavedLevel");
-            SceneManager.LoadScene(levelToLoad);
+            Debug.LogWarning("LOAD CHECK: Kayıtlı sahne adı boş geldi, bu bir hatadır. 'No Saved Game' diyalogu açılıyor.");
+            noSavedGameDialog.SetActive(true);
         }
         else
         {
-            noSavedGameDialog.SetActive(true);
+            Time.timeScale = 1f; // Zamanı başlat
+            SceneManager.LoadScene(levelToLoad);
         }
+    }
+    else
+    {
+        // Kayıt Anahtarı Hiç Yoksa
+        Debug.Log("LOAD CHECK: PlayerPrefs'te 'SavedLevel' anahtarı bulunamadı. 'No Saved Game' diyalogu açılıyor.");
+        noSavedGameDialog.SetActive(true);
+    }
+}
+
+    
+    public void SaveGame()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        
+        PlayerPrefs.SetString("SavedLevel", currentSceneName);
+        
+        PlayerPrefs.Save(); 
+        
+        Debug.Log("Oyun kaydedildi. Kayıtlı Sahne: " + currentSceneName);
+        
+        StartCoroutine(ConfirmationBox());
     }
 
     public void ExitButton()
@@ -203,7 +231,6 @@ public class MenuController : MonoBehaviour
 
             GraphicsApply();
         }
-
 
 
         if (MenuType == "Audio")
