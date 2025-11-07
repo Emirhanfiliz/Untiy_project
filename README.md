@@ -21,7 +21,8 @@ FlowChart.png de detaylı hali mevcut
 ## 4. Tasarlanan Sahneler  
 Projede bulunan başlıca sahneler:  
 - **Giriş Menüsü (Main Menu):** Oyuna başla, ayarlar, çıkış seçenekleri.  
-- **Oyun Sahnesi (Game Scene):** Ana oynanış alanı — oyuncu kontrolü, düşmanlar, bomba, HUD.  
+- **Oyun Sahnesi (Game Scene):** Ana oynanış alanı — oyuncu kontrolü, düşmanlar, bomba, HUD.
+- **Duraklatma Sahnesi (Pause Scene):** Oyun geçici olarak durdurulur, oyuncu menüye erişebilir. 
 - **Ayarlar (Settings):** Ses ayarları, zorluk seviyesi değişimi.  
 
 ## 5. Literatür Taraması ve Esinlenme  
